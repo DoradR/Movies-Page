@@ -1,0 +1,44 @@
+{% extends 'glowny.html' %}
+
+{% block tytul %} Details {% endblock %}
+
+{% block strona %}
+
+<div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: 550px;">
+      <div class="card-body">
+          <img src="/media/{{ film.plakat }}" class="film-plakat">
+          <h1 class="card-title" style="margin-left: 10rem">{{ film }}</h1>
+          <h4></h4>
+          <form method="post">
+              {% csrf_token %}
+
+          </form>
+          <p class="text-white" style="margin-left: 10rem">{{ film.opis }}</p>
+          <p class="text-white" style="margin-left: 10rem">Premiera: {{ film.premiera }}</p>
+          <p class="text-white" style="margin-left: 10rem">IMDB Rating: {{ film.imdb_rating }}</p>
+          <p class="text-white" style="margin-left: 10rem">Gługość filmu: {{ film.dodatkowe.czas_trwania }} minut</p>
+
+          <h3 class="text-white">Aktorzy:</h3>
+            {% for aktor in aktorzy %}
+              <div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: auto;">
+                  <div class="card-body">
+                    <p class="card-title text-white">{{aktor.imie}}, {{aktor.nazwisko}}</p>
+                  </div>
+              </div>
+            {% endfor %}
+          <a href="{% url 'dodaj_aktora' film.id %}" class="btn btn-primary">Dodaj aktora </a>
+
+          <h3 class="text-white">Oceny:</h3>
+            {% for ocena in oceny %}
+              <div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: auto;">
+                  <div class="card-body">
+                    <h5 class="card-title text-white">Gwiazdki: {{ocena.gwiazdki}}</h5>
+                    <p>{{ocena.recenzja}}</p>
+                  </div>
+              </div>
+            {% endfor %}
+          <a href="{% url 'ocen_film' film.id %}" class="btn btn-primary">Oceń film </a>
+      </div>
+    </div>
+    <a href="{% url 'wszystkie_filmy' %}" class="btn btn-primary">Cofnij <i class="fa-solid fa-door-open"></i></a>
+{% endblock %}

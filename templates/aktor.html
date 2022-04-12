@@ -1,0 +1,27 @@
+{% extends 'glowny.html' %}
+{% load bootstrap %}
+{% block tytul %} Details {% endblock %}
+
+{% block strona %}
+  <div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: 26rem; float: left; margin-right: 1rem;">
+      <div class="card-body">
+        <h5 class="card-title">Dodaj aktora</h5>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form_aktor|bootstrap }}
+                <button type="submit" class="btn btn-primary">Dodaj <i class="fa-solid fa-plus"></i></i></button>
+        </form>
+      </div>
+  </div>
+
+  <h3 class="text-white">Aktorzy:</h3>
+{% for aktor in aktorzy %}
+  <div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: auto;">
+      <div class="card-body">
+        <p class="card-title text-white">{{aktor.imie}}, {{aktor.nazwisko}}</p>
+      </div>
+  </div>
+{% endfor %}
+    <a href="{% url 'wszystkie_filmy' %}" class="btn btn-primary">Cofnij <i class="fa-solid fa-door-open"></i></a>
+{% endblock %}

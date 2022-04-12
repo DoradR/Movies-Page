@@ -1,0 +1,29 @@
+{% extends 'glowny.html' %}
+{% load bootstrap %}
+{% block tytul %} Film form {% endblock %}
+
+{% block strona %}
+    <div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: 26rem; float: left; margin-right: 1rem;">
+      <div class="card-body">
+          {% if nowy %}
+            <h5 class="card-title">Nowy film</h5>
+          {% else %}
+            <h5 class="card-title">Edytuj film</h5>
+          {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                {{ form_dodatkowe|bootstrap }}
+                {% if nowy %}
+                    <button type="submit" class="btn btn-primary">Nowy film <i class="fa-solid fa-folder-plus"></i></button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary">Edytuj film <i class="fa-solid fa-pen-to-square"></i></button>
+                {% endif %}
+
+            </form>
+      </div>
+    </div>
+    <a href="{% url 'wszystkie_filmy' %}" class="btn btn-primary">Cofnij <i class="fa-solid fa-door-open"></i></a>
+
+{% endblock %}
