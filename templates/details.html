@@ -18,16 +18,6 @@
           <p class="text-white" style="margin-left: 10rem">IMDB Rating: {{ film.imdb_rating }}</p>
           <p class="text-white" style="margin-left: 10rem">Gługość filmu: {{ film.dodatkowe.czas_trwania }} minut</p>
 
-          <h3 class="text-white">Aktorzy:</h3>
-            {% for aktor in aktorzy %}
-              <div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: auto;">
-                  <div class="card-body">
-                    <p class="card-title text-white">{{aktor.imie}}, {{aktor.nazwisko}}</p>
-                  </div>
-              </div>
-            {% endfor %}
-          <a href="{% url 'dodaj_aktora' film.id %}" class="btn btn-primary">Dodaj aktora </a>
-
           <h3 class="text-white">Oceny:</h3>
             {% for ocena in oceny %}
               <div class="card text-white bg-dark mb-3 border-primary mb-3" style="width: auto;">

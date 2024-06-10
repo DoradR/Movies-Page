@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Film, DodatkoweInfo, Ocena
-from .forms import FilmForm, DodatkoweInfoForm, OcenaForm, AktorForm
+from .forms import FilmForm, DodatkoweInfoForm, OcenaForm
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
@@ -22,12 +22,11 @@ def wszystkie_filmy(request):
 def details_film(request, id):
     film = get_object_or_404(Film, pk=id)
     oceny = Ocena.objects.filter(film=film)
-    aktorzy = film.aktorzy.all()
 
     if request.method == "POST":
         film.objects.filter(id)
 
-    return render(request, 'details.html', {'film': film, 'oceny': oceny, 'aktorzy': aktorzy})
+    return render(request, 'details.html', {'film': film, 'oceny': oceny})
 
 @login_required()
 def nowy_film(request):
@@ -91,18 +90,3 @@ def ocen_film(request, id):
             return redirect(wszystkie_filmy)
 
     return render(request, 'ocen.html', {'oceny': oceny, 'form_ocena': form_ocena})
-
-@login_required()
-def dodaj_aktora(request, id):
-    film = get_object_or_404(Film, pk=id)
-    aktorzy = film.aktorzy.all()
-
-    form_aktor = AktorForm(request.POST or None)
-
-    if request.method == 'POST':
-        if 'imie' in request.POST:
-            aktor = form_aktor.save(commit=False)
-            aktor.film = film
-            aktor.save()
-
-    return render(request, 'aktor.html', {'aktorzy': aktorzy, 'form_aktor': form_aktor})

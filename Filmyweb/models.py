@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import UserManager
 
 class DodatkoweInfo(models.Model):
     GATUNEK = [
@@ -33,7 +34,3 @@ class Ocena(models.Model):
     gwiazdki = models.PositiveSmallIntegerField(default=5)
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
 
-class Aktor(models.Model):
-    imie = models.CharField(max_length=32)
-    nazwisko = models.CharField(max_length=32)
-    filmy = models.ManyToManyField(Film, related_name="aktorzy")
